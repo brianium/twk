@@ -1,6 +1,7 @@
 (ns dev
-  (:require [clojure.pprint :refer [pprint]]
-            [clj-reload.core :as reload]
+  (:require [clj-reload.core :as reload]
+            [demo.config :refer [config]]
+            [demo.system :as system]
             [portal.api :as p]))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -14,43 +15,22 @@
 ;; System Lifecycle
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(def config
-  "System configuration."
-  {:environment "development"})
-
 (defn start
   "Start the development system."
-  ([]
-   (start config))
-  ([c]
-   (tap> {:event :system/start :config c})
-   :started))
+  []
+  (system/start config))
 
 (defn stop
   "Stop the development system."
   []
-  (tap> {:event :system/stop})
-  :stopped)
-
-(defn suspend
-  "Suspend the system before namespace reload."
-  []
-  (tap> {:event :system/suspend}))
-
-(defn resume
-  "Resume the system after namespace reload."
-  [c]
-  (tap> {:event :system/resume :config c}))
+  (system/stop))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Reloading
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defn reload
-  "Reload changed namespaces.
-
-  This is the preferred way to reload during development. Consider binding
-  this to a keyboard shortcut in your editor (e.g., C-c r in Emacs)."
+  "Reload changed namespaces."
   []
   (reload/reload))
 
@@ -61,18 +41,12 @@
   (reload)
   (start))
 
-;; clj-reload hooks
+;; clj-reload hook
 (defn before-ns-unload []
-  (suspend))
-
-(defn after-ns-reload []
-  (resume config))
+  (stop))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Development Utilities
+;; Start the system
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defn show-config
-  "Display current configuration."
-  []
-  (pprint config))
+(start)

@@ -1,16 +1,28 @@
 {:paths ["src/clj" "resources"]
 
- :deps {org.clojure/clojure {:mvn/version "1.12.0"}}
+ :deps {org.clojure/clojure              {:mvn/version "1.12.0"}
+        io.github.brianium/sandestin     {:git/tag "v0.1.0" :git/sha "cfe9c24"}
+        dev.data-star.clojure/sdk        {:mvn/version "1.0.0-RC4"}
+        dev.onionpancakes/chassis        {:mvn/version "1.0.365"}
+        com.cnuernber/charred            {:mvn/version "1.037"}}
 
  :aliases
  {:dev
   {:extra-paths ["dev/src/clj" "dev/resources"]
-   :extra-deps {djblue/portal {:mvn/version "0.62.2"}
-                io.github.tonsky/clj-reload {:mvn/version "1.0.0"}}
+   :extra-deps {djblue/portal                    {:mvn/version "0.62.2"}
+                io.github.tonsky/clj-reload      {:mvn/version "1.0.0"}
+                dev.data-star.clojure/brotli     {:mvn/version "1.0.0-RC4"}
+                dev.data-star.clojure/http-kit   {:mvn/version "1.0.0-RC4"}
+                dev.data-star.clojure/ring       {:mvn/version "1.0.0-RC4"}
+                integrant/integrant              {:mvn/version "0.13.1"}
+                metosin/malli                    {:mvn/version "0.19.1"}
+                metosin/reitit                   {:mvn/version "0.9.1"}
+                ring/ring-mock                   {:mvn/version "0.6.2"}}
    :jvm-opts ["-Djdk.attach.allowAttachSelf"]}
 
   :test
   {:extra-paths ["test/src/clj" "test/resources"]
-   :extra-deps {io.github.cognitect-labs/test-runner {:git/tag "v0.5.1" :git/sha "dfb30dd"}}
+   :extra-deps {io.github.cognitect-labs/test-runner {:git/tag "v0.5.1" :git/sha "dfb30dd"}
+                ring/ring-mock                       {:mvn/version "0.6.2"}}
    :main-opts ["-m" "cognitect.test-runner"]
    :exec-fn cognitect.test-runner.api/test}}}
