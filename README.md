@@ -12,6 +12,15 @@ Twk provides feature parity with [datastar.wow](https://github.com/brianium/data
         io.github.brianium/sandestin {:git/tag "v0.3.0" :git/sha "2be6acc"}}}
 ```
 
+A compatible Datastar adapter is also required:
+
+| library       | deps coordinate                                                                                                                                         |
+| ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| http-kit      | [![Clojars Project](https://img.shields.io/clojars/v/dev.data-star.clojure/http-kit.svg)](https://clojars.org/dev.data-star.clojure/http-kit)           |
+| ring          | [![Clojars Project](https://img.shields.io/clojars/v/dev.data-star.clojure/ring.svg)](https://clojars.org/dev.data-star.clojure/ring)                   |
+
+Other tools provided by the official Clojure SDK may be useful as well (such as Brotli compression). See the [official installation instructions](https://github.com/starfederation/datastar-clojure?tab=readme-ov-file#installation) for more info.
+
 ## Quick Start
 
 ```clojure
