@@ -8,7 +8,7 @@ Twk provides feature parity with [datastar.wow](https://github.com/brianium/data
 
 ```clojure
 ;; deps.edn
-{:deps {io.github.brianium/twk {:git/tag "v0.2.0" :git/sha "0c37978"}
+{:deps {io.github.brianium/twk {:git/tag "v0.2.1" :git/sha "e3c5011"}
         io.github.brianium/sandestin {:git/tag "v0.4.0" :git/sha "7d29c81"}}}
 ```
 
