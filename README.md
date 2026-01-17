@@ -9,7 +9,7 @@ Twk provides feature parity with [datastar.wow](https://github.com/brianium/data
 ```clojure
 ;; deps.edn
 {:deps {io.github.brianium/twk {:git/tag "v0.2.0" :git/sha "0c37978"}
-        io.github.brianium/sandestin {:git/tag "v0.3.0" :git/sha "2be6acc"}}}
+        io.github.brianium/sandestin {:git/tag "v0.4.0" :git/sha "7d29c81"}}}
 ```
 
 A compatible Datastar adapter is also required:
