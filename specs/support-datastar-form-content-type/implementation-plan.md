@@ -14,9 +14,9 @@ Modify TWK's `with-signals` middleware to detect form-encoded requests and skip 
 
 ### Tasks
 
-- [ ] Add `form-content-type?` helper function to middleware.clj
-- [ ] Modify `with-signals` to check content type before parsing
-- [ ] Ensure form requests pass through without `:signals` key (not `nil` value)
+- [x] Add `form-content-type?` helper function to middleware.clj (commit: e8c28a8)
+- [x] Modify `with-signals` to check content type before parsing (commit: e8c28a8)
+- [x] Ensure form requests pass through without `:signals` key (not `nil` value) (commit: e8c28a8)
 
 ### Implementation
 
@@ -53,11 +53,11 @@ In `src/clj/ascolais/twk/middleware.clj`:
 
 ### Tasks
 
-- [ ] Add test for form-encoded POST request (no error thrown)
-- [ ] Add test for form-encoded request has no `:signals` key
-- [ ] Add test for JSON POST request still parses signals correctly
-- [ ] Add test for multipart/form-data content type
-- [ ] Verify existing tests still pass
+- [x] Add test for form-encoded POST request (no error thrown) (commit: e8c28a8)
+- [x] Add test for form-encoded request has no `:signals` key (commit: e8c28a8)
+- [x] Add test for JSON POST request still parses signals correctly (commit: e8c28a8)
+- [x] Add test for multipart/form-data content type (commit: e8c28a8)
+- [x] Verify existing tests still pass (commit: e8c28a8)
 
 ### Test Cases
 
@@ -85,7 +85,7 @@ In `src/clj/ascolais/twk/middleware.clj`:
 
 ### Tasks
 
-- [ ] Add docstring note about form content type behavior
+- [x] Add docstring note about form content type behavior (commit: e8c28a8)
 - [ ] Consider adding example to README showing form pattern usage
 
 ## Rollout Plan

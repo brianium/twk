@@ -1,6 +1,6 @@
 ---
 title: "Support Datastar Form Content Type"
-status: planned
+status: completed
 date: 2026-01-27
 priority: 10
 ---
@@ -35,6 +35,6 @@ See [research.md](research.md) for full analysis.
 
 See [implementation-plan.md](implementation-plan.md) for detailed task breakdown.
 
-- [ ] Phase 1: Core implementation
-- [ ] Phase 2: Testing
-- [ ] Phase 3: Documentation
+- [x] Phase 1: Core implementation (commit: e8c28a8)
+- [x] Phase 2: Testing (commit: e8c28a8)
+- [x] Phase 3: Documentation (commit: e8c28a8)
