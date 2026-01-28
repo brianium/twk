@@ -2,23 +2,35 @@
   "Implementation for the with-datastar middleware"
   (:require [charred.api :as json]
             [clojure.set :as set]
+            [clojure.string :as str]
             [dev.onionpancakes.chassis.core :as c]
             [starfederation.datastar.clojure.api :as d*]))
 
 (def default-read-json (json/parse-json-fn {:async? false :bufsize 1024 :key-fn keyword}))
 
+(defn- form-content-type?
+  "Returns true if request has form-encoded content type.
+   Datastar sends no signals with form content type, so we skip JSON parsing."
+  [request]
+  (when-let [ct (get-in request [:headers "content-type"])]
+    (or (str/starts-with? ct "application/x-www-form-urlencoded")
+        (str/starts-with? ct "multipart/form-data"))))
+
 (defn with-signals
-  "Parse signals and place on request as a map"
+  "Parse signals and place on request as a map.
+   Skips parsing for form-encoded requests (no signals sent by Datastar)."
   ([]
    (with-signals default-read-json))
   ([read-json]
    (fn [handler]
      (fn [request]
        (if (d*/datastar-request? request)
-         (let [raw-signals (d*/get-signals request)]
-           (if (some? raw-signals)
-             (handler (assoc request :signals (read-json raw-signals)))
-             (handler request)))
+         (if (form-content-type? request)
+           (handler request)
+           (let [raw-signals (d*/get-signals request)]
+             (if (some? raw-signals)
+               (handler (assoc request :signals (read-json raw-signals)))
+               (handler request))))
          (handler request))))))
 
 (defn- datastar-response?

@@ -1,6 +1,8 @@
 (ns ascolais.twk-test
   (:require [ascolais.sandestin :as s]
             [ascolais.twk :as twk :refer [with-datastar]]
+            [ascolais.twk.middleware :as mw]
+            [clojure.java.io :as io]
             [clojure.string :as string]
             [clojure.test :refer [deftest is testing use-fixtures]]
             [dev.onionpancakes.chassis.core :as c]
@@ -90,6 +92,40 @@
         result  (handle request {::twk/fx [[::twk/patch-elements [:h1#test "hello"]]]})
         {{:keys [signals]} :request} result]
     (is (= {:ok true} signals))))
+
+(deftest form-content-type-handling
+  (testing "form-encoded requests do not throw"
+    (let [handler ((mw/with-signals) identity)
+          request {:headers {"datastar-request" "true"
+                             "content-type" "application/x-www-form-urlencoded"}
+                   :request-method :post
+                   :body (io/input-stream (.getBytes "foo=bar&baz=qux"))}]
+      (is (map? (handler request)))))
+
+  (testing "form-encoded requests have no :signals key"
+    (let [handler ((mw/with-signals) identity)
+          request {:headers {"datastar-request" "true"
+                             "content-type" "application/x-www-form-urlencoded"}
+                   :request-method :post
+                   :body (io/input-stream (.getBytes "foo=bar"))}]
+      (is (not (contains? (handler request) :signals)))))
+
+  (testing "multipart/form-data requests do not throw"
+    (let [handler ((mw/with-signals) identity)
+          request {:headers {"datastar-request" "true"
+                             "content-type" "multipart/form-data; boundary=----WebKitFormBoundary"}
+                   :request-method :post
+                   :body (io/input-stream (.getBytes "multipart body here"))}]
+      (is (map? (handler request)))
+      (is (not (contains? (handler request) :signals)))))
+
+  (testing "JSON requests still parse signals correctly"
+    (let [handler ((mw/with-signals) identity)
+          request {:headers {"datastar-request" "true"
+                             "content-type" "application/json"}
+                   :request-method :post
+                   :body (io/input-stream (.getBytes "{\"foo\":1}"))}]
+      (is (= {:foo 1} (:signals (handler request)))))))
 
 (deftest patch-elements-effect
   (testing "without any options"
