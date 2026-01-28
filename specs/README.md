@@ -1,15 +1,11 @@
 # Specifications
 
-This directory contains living specifications for twk features and concepts.
+*Auto-generated on 2026-01-27 19:16*
 
-## Current Priorities
+## Planned
 
-No active priorities. All specs are complete.
+- [Support Datastar Form Content Type](support-datastar-form-content-type/README.md)
 
-## Spec Index
+## Completed
 
-| Spec | Status | Description |
-|------|--------|-------------|
-| [001-upgrade-sandestin-v0.4.0](./001-upgrade-sandestin-v0.4.0.md) | Complete | Upgrade sandestin from v0.3.0 to v0.4.0 |
-
-Status values: Draft, Active, Complete, Archived
+- [Upgrade Sandestin to v0.4.0](001-upgrade-sandestin-v0.4.0/README.md)
